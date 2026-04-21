@@ -1,0 +1,34 @@
+app.py
+python
+
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Hello from Dockerised Flask!"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+
+
+    dockerfile
+
+FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+EXPOSE 5000
+CMD ["python", "app.py"]
+
+
+Build, run & push to Docker Hub
+bash
+
+docker build -t <dockerhub-username>/flask-app:latest .
+
+docker run -d -p 5000:5000 <dockerhub-username>/flask-app:latest
+
+docker login
+docker push <dockerhub-username>/flask-app:latest
