@@ -1,3 +1,5 @@
+#app.py
+
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -24,3 +26,14 @@ def delete_student(sid):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+#Run & test with curl
+
+pip install flask
+python app.py
+
+curl -X POST http://localhost:5000/students \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Alice","roll":"CS001"}'
+
+curl http://localhost:5000/students
